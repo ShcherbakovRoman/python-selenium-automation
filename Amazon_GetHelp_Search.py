@@ -14,6 +14,8 @@ input_field.send_keys('Cancel Order', Keys.ENTER)
 
 
 result = driver.find_element(By.XPATH, "//a[contains(@href, 'GSL')]")
+# ("//h1[@text()='Cancel Items or Orders']")
+
 assert result.text == 'Cancel Items or Orders', f'Error. Expected Cancel Items or Orders but got {result.text}'
 
 driver.quit()
