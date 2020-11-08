@@ -11,24 +11,22 @@ SIGN_BTN = (By.CSS_SELECTOR, "div#nav-signin-tooltip > a")
 
 @given('Open Amazon page')
 def open_amazon(context):
-    context.driver.get('https://www.amazon.com')
+    context.app.main_page.open_amazon()
 
 
 @when("Input Shoes into Amazon search field")
 def input_search_word(context):
-    context.driver.find_element(*SEARCH_INPUT).send_keys('Shoes')
+    context.app.main_page.input_search_word('Shoes')
 
 
 @when('Click on Amazon search icon')
 def click_search(context):
-    search_icon = context.driver.find_element(*ICON_CLICK)
-    search_icon.click()
+    context.app.main_page.click_search_icon()
 
 
 @then('First Amazon result contains Shoes')
 def result_check(context):
-    result = context.driver.find_element(*SEARCH_RESULT)
-    assert result.text == '"Shoes"', f'Error. Expected Shoes but got {result.text}'
+    context.app.search_results.verify_search_result('"Shoes"')
 
 
 @then('Verify Sign In is visible')
@@ -44,3 +42,39 @@ def sleep_sec(context, sec):
 @then('Verify Sign In disappears')
 def signup_disappears(context):
     context.driver.wait.until(EC.invisibility_of_element_located(SIGN_BTN))
+
+
+@when('Click Amazon Orders link')
+def click_orders(context):
+    context.app.main_page.click_orders()
+
+@then('Verify Sign In page is opened')
+def verify_signin(context):
+    context.app.SingIn_page.verify_signin_module('Sign-In')
+
+
+@then('Verify \'Your Amazon Cart is empty\' text present')
+def verify_empty_cart(context):
+    context.app.Cart_page.verify_cart_empty('Your Amazon Cart is empty')
+
+
+@when('Click on hamburger menu')
+def click_ham_menu(context):
+    context.app.main_page.click_ham_menu()
+
+@when('Click on Amazon Music menu item')
+def click_amazon_music(context):
+    context.app.main_page.click_amazon_music()
+
+@then('7 menu items are present')
+def verify_music_items_present(context):
+    pass
+
+
+
+
+
+
+
+
+

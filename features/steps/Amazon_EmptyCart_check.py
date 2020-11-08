@@ -11,7 +11,7 @@ def open_amazon(context):
 
 @when('Click on Cart icon')
 def click_cart(context):
-    context.driver.find_element(*FIND_CART).click()
+    context.app.main_page.click_cart()
 
 
 @then('Verify Cart is empty')
