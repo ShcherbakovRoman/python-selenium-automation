@@ -1,6 +1,6 @@
 from pages.base_page import Page
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support.select import Select
 
 class MainPage(Page):
     SEARCH_INPUT = (By.ID, 'twotabsearchtextbox')
@@ -8,7 +8,9 @@ class MainPage(Page):
     ORDERS_LINK = (By.CSS_SELECTOR, '#nav-orders')
     CART_ICON = (By.CSS_SELECTOR, "a#nav-cart")
     HAM_MENU = (By.CSS_SELECTOR, "#nav-hamburger-menu")
-    AMZ_MUSIC = (By.XPATH, "//div[contains(text(), 'Amazon Music')]")
+    DEPARTMENT_DD = (By.ID, 'searchDropdownBox')
+    CURRENT_CATEGORY = (By.CSS_SELECTOR, 'div#nav-subnav[data-category="electronics"]')
+
 
     def open_amazon(self):
         self.open_page('https://www.amazon.com')
@@ -28,8 +30,16 @@ class MainPage(Page):
     def click_ham_menu(self):
         self.click(*self.HAM_MENU)
 
-    def click_amazon_music(self):
-        self.click(*self.AMZ_MUSIC)
+    def select_electronics_department(self):
+        dd = self.find_elelment(*self.DEPARTMENT_DD)
+        select = Select(dd)
+        select.select_by_value('search-alias=electronics')
+
+    def verify_electronics_department_selected(self):
+        self.wait_for_element_appear(*self.CURRENT_CATEGORY)
+
+
+
 
 
 

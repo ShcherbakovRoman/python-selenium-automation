@@ -31,3 +31,10 @@ Feature: Test Amazon Search
     When Click on hamburger menu
     And Click on Amazon Music menu item
     Then 7 menu items are present
+
+
+  Scenario: User can select from dropdown and search in department
+    Given Open Amazon page
+    When Select Electronics department
+    And Search for Tablet
+    Then Verify electronics department is selected

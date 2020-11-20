@@ -50,12 +50,12 @@ def click_orders(context):
 
 @then('Verify Sign In page is opened')
 def verify_signin(context):
-    context.app.SingIn_page.verify_signin_module('Sign-In')
+    context.app.singin_page.verify_signin_module('Sign-In')
 
 
 @then('Verify \'Your Amazon Cart is empty\' text present')
 def verify_empty_cart(context):
-    context.app.Cart_page.verify_cart_empty('Your Amazon Cart is empty')
+    context.app.cart_page.verify_cart_empty('Your Amazon Cart is empty')
 
 
 @when('Click on hamburger menu')
@@ -64,12 +64,27 @@ def click_ham_menu(context):
 
 @when('Click on Amazon Music menu item')
 def click_amazon_music(context):
-    context.app.main_page.click_amazon_music()
+    context.app.ham_menu.click_amazon_music()
 
-@then('7 menu items are present')
-def verify_music_items_present(context):
-    pass
+@then('{qty} menu items are present')
+def verify_music_items_present(context, qty):
+    context.app.ham_menu.verify_links_qty(int(qty))
 
+
+@when('Select Electronics department')
+def select_electronics_department(context):
+    context.app.main_page.select_electronics_department()
+
+
+@when('Search for {Product}')
+def search_for_product(context, Product):
+    context.app.main_page.input_search_word(Product)
+    context.app.main_page.click_search_icon()
+
+
+@then('Verify electronics department is selected')
+def verify_electronics_department_selected(context):
+    context.app.main_page.verify_electronics_department_selected()
 
 
 

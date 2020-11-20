@@ -1,5 +1,5 @@
 from selenium.webdriver.support.wait import WebDriverWait
-
+from selenium.webdriver.support import expected_conditions as EC
 
 class Page:
 
@@ -9,6 +9,9 @@ class Page:
 
     def click(self, *locator):
         self.driver.find_element(*locator).click()
+
+    def find_elelment(self, *locator):
+        return self.driver.find_element(*locator)
 
     def open_page(self, url):
         self.driver.get(url)
@@ -24,3 +27,7 @@ class Page:
         """
         actual_text = self.driver.find_element(*locator).text
         assert actual_text == expected_text, f'Error. Expected {expected_text} does not match actual {actual_text}'
+
+
+    def wait_for_element_appear(self, *locator):
+        self.driver.wait.until(EC.visibility_of_element_located(locator))
